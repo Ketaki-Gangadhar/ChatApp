@@ -1,6 +1,7 @@
 package ketaki.mycompany.letschat.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import ketaki.mycompany.letschat.MessageActivity;
 import ketaki.mycompany.letschat.Model.Users;
 import ketaki.mycompany.letschat.R;
 
@@ -57,9 +59,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     .into(holder.imageView);
         }
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MessageActivity.class);
+                intent.putExtra("userId", mUsers.getId());
+                context.startActivity(intent);
+
+            }
+        });
 
     }
-
     @Override
     public int getItemCount() {
         return myUsers.size();
@@ -78,16 +88,5 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }
