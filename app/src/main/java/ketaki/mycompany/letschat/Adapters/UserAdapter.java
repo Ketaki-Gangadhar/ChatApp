@@ -1,6 +1,7 @@
 package ketaki.mycompany.letschat.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import ketaki.mycompany.letschat.Home;
+import ketaki.mycompany.letschat.MessageActivityy;
 import ketaki.mycompany.letschat.Model.MyUsers;
 import ketaki.mycompany.letschat.R;
 
@@ -47,6 +50,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             {
                 Glide.with(mContext).load(user.getImageURL()).into(holder.profile_image);
             }
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(mContext, MessageActivityy.class);
+                    i.putExtra("userId", user.getId());
+                    mContext.startActivity(i);
+                }
+            });
+
+
 
     }
 

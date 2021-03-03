@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LetsChat">
-        <activity android:name=".MessageActivity"></activity>
+        <activity android:name=".MessageActivityy"></activity>
         <activity android:name=".Home" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity">

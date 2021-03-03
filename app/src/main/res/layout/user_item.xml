@@ -15,16 +15,10 @@
       android:layout_height="wrap_content"
       android:layout_centerVertical="true"
       android:layout_marginLeft="10dp"
+      android:textAllCaps="false"
       android:layout_toEndOf="@id/userImage"
       android:layout_toRightOf="@id/userImage"
       android:text="username"
       android:textColor="@color/black"
       android:textSize="20sp" />
-
-
-
-
-
-
-
 </RelativeLayout>
