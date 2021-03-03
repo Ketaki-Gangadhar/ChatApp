@@ -3,6 +3,7 @@ package ketaki.mycompany.letschat;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -25,8 +26,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import ketaki.mycompany.letschat.Adapters.MessageAdapter;
+import ketaki.mycompany.letschat.Model.Chat;
 import ketaki.mycompany.letschat.Model.MyUsers;
 
 public class MessageActivityy extends AppCompatActivity {
@@ -41,6 +46,12 @@ public class MessageActivityy extends AppCompatActivity {
     FirebaseUser fUser;
     DatabaseReference reference;
     Intent intent;
+
+    MessageAdapter messageAdapter;
+    List<Chat> mChat;
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +64,12 @@ public class MessageActivityy extends AppCompatActivity {
         sendButton= findViewById(R.id.btnSend);
         msg_editText = findViewById(R.id.textSend);
 
+        recyclerView = findViewById(R.id.recyclerView_msg);
+        recyclerView.setHasFixedSize(true);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         intent = getIntent();
         String userId = intent.getStringExtra("userId");
@@ -73,6 +89,7 @@ public class MessageActivityy extends AppCompatActivity {
                 {
                     Glide.with(MessageActivityy.this).load(user.getImageURL()).into(imageView);
                 }
+                readMessage(fUser.getUid(),userId,user.getImageURL());
 
             }
 
@@ -115,6 +132,38 @@ public class MessageActivityy extends AppCompatActivity {
 
         reference.child("Chats").push().setValue(hashMap);
 
+
+    }
+
+    private void readMessage (String myid, String userid, String imageUrl)
+    {
+        mChat = new ArrayList<>();
+
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                mChat.clear();
+                for(DataSnapshot snapshot : datasnapshot.getChildren())
+                {
+                    Chat chat = snapshot.getValue(Chat.class);
+
+                    if(chat.getReceiver().equals(myid) && chat.getSender().equals(userid)
+                    || chat.getReceiver().equals(userid) && chat.getSender().equals(myid))
+                    {
+                      mChat.add(chat);
+                    }
+
+                    messageAdapter = new MessageAdapter(MessageActivityy.this, mChat, imageUrl);
+                    recyclerView.setAdapter(messageAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 

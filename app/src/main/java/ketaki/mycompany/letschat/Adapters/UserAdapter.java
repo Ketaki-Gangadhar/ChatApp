@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import ketaki.mycompany.letschat.Home;
 import ketaki.mycompany.letschat.MessageActivityy;
 import ketaki.mycompany.letschat.Model.MyUsers;
 import ketaki.mycompany.letschat.R;
