@@ -1,5 +1,4 @@
 package ketaki.mycompany.letschat.fragments;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ketaki.mycompany.letschat.Adapters.UserAdapter;
-import ketaki.mycompany.letschat.Model.Users;
+import ketaki.mycompany.letschat.Model.MyUsers;
 import ketaki.mycompany.letschat.R;
 
 
@@ -31,11 +30,11 @@ public class UsersFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
-    private List<Users> myUsers;
+    private List<MyUsers> mUsers;
 
 
     public UsersFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -44,36 +43,29 @@ public class UsersFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_users,container,false);
 
-        recyclerView = view.findViewById(R.id.usersRecyclerViewUser);
+        recyclerView = view.findViewById(R.id.Recycler_View);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        myUsers = new ArrayList<>();
-        ReadUsers();
-
-       return view;
-    }
-    private void ReadUsers()
-    {
-        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUsers = new ArrayList<>();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("MyUsers");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot snapshot1 : snapshot.getChildren())
-                {
-                    Users users = snapshot1.getValue(Users.class);
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                mUsers.clear();
+                for(DataSnapshot snapshot : datasnapshot.getChildren()) {
+                    MyUsers user = snapshot.getValue(MyUsers.class);
 
-                    assert  users!= null;
-                    if(!users.getId().equals(firebaseUser.getUid()))
-                    {
-                        myUsers.add(users);
+                    assert user != null;
+                    if (!user.getId().equals(firebaseUser.getUid())) {
+                        mUsers.add(user);
                     }
-
-                    userAdapter = new UserAdapter(getContext(), myUsers);
-                    recyclerView.setAdapter(userAdapter);
-
                 }
+                userAdapter = new UserAdapter(getContext(), mUsers);
+                recyclerView.setAdapter(userAdapter);
+
+
             }
 
             @Override
@@ -81,6 +73,8 @@ public class UsersFragment extends Fragment {
 
             }
         });
+
+        return view;
     }
 
 

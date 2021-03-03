@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import ketaki.mycompany.letschat.Model.Users;
+import ketaki.mycompany.letschat.Model.MyUsers;
 import ketaki.mycompany.letschat.fragments.ChatFragment;
 import ketaki.mycompany.letschat.fragments.UsersFragment;
 
@@ -42,7 +42,7 @@ public class Home extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-               Users users = snapshot.getValue(Users.class);
+               MyUsers users = snapshot.getValue(MyUsers.class);
 
             }
 
@@ -62,23 +62,6 @@ public class Home extends AppCompatActivity {
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
   @Override
     public  boolean onCreateOptionsMenu(Menu menu)
@@ -135,15 +118,6 @@ public class Home extends AppCompatActivity {
             return titles.get(position);
         }
         }
-
-
-
-
-
-
-
-
-
 
 
 }

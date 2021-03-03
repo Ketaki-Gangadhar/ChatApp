@@ -1,7 +1,6 @@
 package ketaki.mycompany.letschat.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,78 +14,60 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import ketaki.mycompany.letschat.MessageActivity;
-import ketaki.mycompany.letschat.Model.Users;
+import ketaki.mycompany.letschat.Model.MyUsers;
 import ketaki.mycompany.letschat.R;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    private Context context;
-    private List<Users> myUsers;
+    private Context mContext;
+    private List<MyUsers> mUsers;
 
-    public  UserAdapter(Context context, List<Users> myUsers )
+    public UserAdapter(Context mContext, List<MyUsers> mUsers)
     {
-        this.context = context;
-        this.myUsers = myUsers;
+        this.mUsers = mUsers;
+        this.mContext = mContext;
     }
-
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.user_item,
-                parent,
-                false);
-
+        View view = LayoutInflater.from(mContext).inflate(R.layout.user_item,parent,false);
         return new UserAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        Users mUsers = myUsers.get(position);
-        holder.textView.setText(mUsers.getName());
-        holder.textView.setVisibility(View.VISIBLE);
-
-       if(mUsers.getImageURL().equals("default"))
-        {
-            holder.imageView.setImageResource(R.mipmap.ic_launcher);
-        }
-        else
-        {
-            Glide.with(context)
-                    .load(mUsers.getImageURL())
-                    .into(holder.imageView);
-        }
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, MessageActivity.class);
-                intent.putExtra("userId", mUsers.getId());
-                context.startActivity(intent);
-
+            MyUsers user = mUsers.get(position);
+            holder.username.setText(user.getUsername());
+            if(user.getImageURL().equals("default"))
+            {
+                holder.profile_image.setImageResource(R.mipmap.ic_launcher);
             }
-        });
+            else
+            {
+                Glide.with(mContext).load(user.getImageURL()).into(holder.profile_image);
+            }
 
     }
+
     @Override
     public int getItemCount() {
-        return myUsers.size();
+       return mUsers.size();
     }
 
-    public  class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView textView;
-       public ImageView imageView;
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        public TextView username;
+        public  ImageView profile_image;
 
-        public ViewHolder(@NonNull View itemView)
+        public  ViewHolder(View itemView)
         {
             super(itemView);
-            textView = itemView.findViewById(R.id.userName);
-            imageView = itemView.findViewById(R.id.userImage);
 
-
+            username = itemView.findViewById(R.id.userName);
+            profile_image = itemView.findViewById(R.id.userImage);
         }
+
     }
+
 
 }

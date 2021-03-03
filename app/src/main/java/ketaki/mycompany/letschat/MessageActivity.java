@@ -7,10 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import ketaki.mycompany.letschat.Model.Users;
+import ketaki.mycompany.letschat.Model.MyUsers;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -52,8 +50,8 @@ public class MessageActivity extends AppCompatActivity {
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Users user = snapshot.getValue(Users.class);
-                    username.setText(user.getName());
+                    MyUsers user = snapshot.getValue(MyUsers.class);
+                    username.setText(user.getUsername());
 
                     if (user.getImageURL().equals("default")) {
                         imageview.setImageResource(R.mipmap.ic_launcher);
