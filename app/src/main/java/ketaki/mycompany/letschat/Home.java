@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import ketaki.mycompany.letschat.Model.MyUsers;
 import ketaki.mycompany.letschat.fragments.ChatFragment;
+import ketaki.mycompany.letschat.fragments.ProfileFragment;
 import ketaki.mycompany.letschat.fragments.UsersFragment;
 
 public class Home extends AppCompatActivity {
@@ -59,7 +60,7 @@ public class Home extends AppCompatActivity {
 
         viewPagerAdapter.addFragment(new ChatFragment(),"Chats");
         viewPagerAdapter.addFragment(new UsersFragment(), "Users");
-
+        viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }

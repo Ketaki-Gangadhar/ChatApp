@@ -42,7 +42,7 @@ public class MessageActivityy extends AppCompatActivity {
     RecyclerView recyclerView;
     EditText msg_editText;
     ImageButton sendButton;
-
+    String userId;
     FirebaseUser fUser;
     DatabaseReference reference;
     Intent intent;
@@ -72,7 +72,7 @@ public class MessageActivityy extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         intent = getIntent();
-        String userId = intent.getStringExtra("userId");
+         userId = intent.getStringExtra("userId");
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("MyUsers").child(userId);
 
@@ -131,6 +131,29 @@ public class MessageActivityy extends AppCompatActivity {
         hashMap.put("message",msg);
 
         reference.child("Chats").push().setValue(hashMap);
+
+
+        //Adding user to chat fragment
+
+        final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("ChatList")
+                .child(fUser.getUid())
+                .child(userId);
+
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.exists())
+                {
+                    chatRef.child("id").setValue(userId);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
     }
