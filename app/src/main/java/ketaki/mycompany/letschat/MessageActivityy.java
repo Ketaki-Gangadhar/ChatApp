@@ -177,7 +177,7 @@ public class MessageActivityy extends AppCompatActivity {
                       mChat.add(chat);
                     }
 
-                    messageAdapter = new MessageAdapter(MessageActivityy.this, mChat, imageUrl);
+                    messageAdapter = new MessageAdapter(MessageActivityy.this, mChat);
                     recyclerView.setAdapter(messageAdapter);
                 }
             }
