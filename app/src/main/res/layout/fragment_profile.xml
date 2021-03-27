@@ -23,7 +23,7 @@
            android:layout_centerHorizontal="true"
            android:layout_height="150dp"
            android:id="@+id/profile_Image_User"
-           android:src="@mipmap/ic_launcher"/>
+           android:src="@drawable/person"/>
 
            <TextView
                android:id="@+id/profile_Username_User"

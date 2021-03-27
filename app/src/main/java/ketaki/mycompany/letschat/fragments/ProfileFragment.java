@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment {
                 userName.setText(user.getUsername());
                 if(user.getImageURL().equals("default"))
                 {
-                    profileImage.setImageResource(R.mipmap.ic_launcher);
+                    profileImage.setImageResource(R.drawable.person);
                 }
                 else
                 {

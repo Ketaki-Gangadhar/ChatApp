@@ -83,7 +83,7 @@ public class MessageActivityy extends AppCompatActivity {
                 username.setText(user.getUsername());
                 if(user.getImageURL().equals("default"))
                 {
-                    imageView.setImageResource(R.mipmap.ic_launcher);
+                    imageView.setImageResource(R.drawable.person);
                 }
                 else
                 {

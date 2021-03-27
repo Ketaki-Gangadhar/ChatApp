@@ -21,7 +21,7 @@
             android:id="@+id/user_imageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/person" />
 
         <TextView
             android:id="@+id/user_name"
@@ -33,6 +33,7 @@
             android:layout_toEndOf="@id/user_imageView"
             android:layout_toRightOf="@id/user_imageView"
             android:text="username"
+            android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -53,15 +54,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:padding="10dp"
             android:layout_toLeftOf="@+id/btnSend"
-            android:background="#EDE7F6"
+            android:background="#F6ECF1"
             android:hint="Type a message"
-            android:textColor="@color/black" />
+            android:textColor="#F40D6A" />
 
         <ImageButton
             android:id="@+id/btnSend"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:backgroundTint="#F40D6A"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/ic_send" />
