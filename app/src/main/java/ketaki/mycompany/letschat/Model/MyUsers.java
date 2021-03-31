@@ -5,14 +5,24 @@ public class MyUsers {
     private String username;
     private String imageURL;
     private String id;
+    private String status;
 
     public MyUsers() {
     }
 
-    public MyUsers(String username, String imageURL, String id) {
+    public MyUsers(String username, String imageURL, String id,String status) {
         this.username = username;
         this.imageURL = imageURL;
         this.id = id;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getUsername() {
